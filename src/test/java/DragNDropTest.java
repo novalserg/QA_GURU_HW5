@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Configuration.baseUrl;
+import static com.codeborne.selenide.DragAndDropOptions.to;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.actions;
@@ -21,6 +22,8 @@ public class DragNDropTest {
     @Test
     void dragNDropByActionsTest(){ //проверяем через actions
         open(baseUrl);
+        $("#column-a").shouldHave(text("A"));
+        $("#column-b").shouldHave(text("B"));
         WebElement columnA = $("#column-a");
         actions().clickAndHold(columnA).moveByOffset(200, 0).release().perform();
         $$(".column").first().shouldHave(text("B"));
@@ -28,12 +31,11 @@ public class DragNDropTest {
 
     }
 
-  /*  @Test
+    @Test
     void dragNDropTest() {
         open(baseUrl);
         WebElement columnB = $("#column-b");
-        $("column-a").dragAndDropTo(columnB);
+        $("#column-a").dragAndDrop(to(columnB));
         $$(".column").first().shouldHave(text("B"));
-    } Работоспособности добиться не удалось*/
-
+    }
 }
